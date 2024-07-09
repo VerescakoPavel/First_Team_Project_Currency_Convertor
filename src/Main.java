@@ -23,6 +23,10 @@ public class Main {
                         System.out.println("test");
                         break;
 
+                    case (2):
+                        System.out.println("test");
+                        break;
+
                     case (3):
                         System.out.println("You choose exit");
                         break;
