@@ -6,6 +6,7 @@ public class Currency {
     public static final float EUR_TO_USD = 1 / USD_TO_EUR;
     public static final float GBP_TO_USD = 1 / USD_TO_GBP;
     public static final float GBP_TO_EUR = 1 / EUR_TO_GBP;
+
     public Currency(String currencyName) {
         this.currencyName = currencyName;
     }
