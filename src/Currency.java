@@ -13,12 +13,7 @@ public class Currency {
 
     public float getRate() {
         return rate;
-    }
+}
 
-    @Override
-    public String toString() {
-        return "Currency{" +
-                "name='" + name + '\'' +
-                '}';
-    }
+   
 }
