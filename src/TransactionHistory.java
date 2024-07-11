@@ -9,6 +9,13 @@ public class TransactionHistory implements iTransactionHistory {
     private final String filePath;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    private static final int DATE_INDEX = 0;
+    private static final int SUM_INDEX = 0;
+    private static final int SELL_CURRENCY_INDEX = 1;
+    private static final int OUTCOME_INDEX = 3;
+    private static final int BUY_CURRENCY_INDEX = 4;
+    private static final int DISPLAY_INDEX = 1;
+
     public TransactionHistory(String filePath) {
         this.filePath = filePath;
         history = new ArrayList<>();
@@ -62,28 +69,21 @@ public class TransactionHistory implements iTransactionHistory {
     }
 
     private void loadHistory() {
-        final int date_index= 0;
-        final int summ_index= 0;
-        final int sellCurrency_index = 1;
-        final int outcome_index = 3;
-        final int buyCurrency_index = 4;
-        final int display_index = 1;
-
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                LocalDateTime dateTime = LocalDateTime.parse(parts[date_index].trim(), formatter);
+                LocalDateTime dateTime = LocalDateTime.parse(parts[DATE_INDEX].trim(), formatter);
 
 
-                String amountString = parts[display_index].trim().split(" ")[summ_index];
+                String amountString = parts[DISPLAY_INDEX].trim().split(" ")[SUM_INDEX];
                 double amount = Double.parseDouble(amountString.replace(',', '.'));
 
-                String fromCurrency = parts[display_index].trim().split(" ")[sellCurrency_index];
-                double result = Double.parseDouble(parts[display_index].trim().split(" ")[outcome_index].replace(',', '.'));
-                String toCurrency = parts[display_index].trim().split(" ")[buyCurrency_index];
+                String fromCurrency = parts[DISPLAY_INDEX].trim().split(" ")[SELL_CURRENCY_INDEX];
+                double result = Double.parseDouble(parts[DISPLAY_INDEX].trim().split(" ")[OUTCOME_INDEX].replace(',', '.'));
+                String toCurrency = parts[DISPLAY_INDEX].trim().split(" ")[BUY_CURRENCY_INDEX];
 
                 history.add(new TransactionRecord(dateTime, amount, fromCurrency, toCurrency, result));
             }
