@@ -22,13 +22,11 @@ public class Main {
             switch (inputChoice) {
                 case (1):
                     CurrencyExchangeMenu.exchangeMenu();
-
-
                     break;
 
                 case (3):
                     System.out.println("You choose exit");
-                    break;
+                    return;
             }
 
         }

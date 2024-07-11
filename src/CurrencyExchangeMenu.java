@@ -1,16 +1,16 @@
-import java.util.Currency;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CurrencyExchangeMenu {
 
-    private static Map<String, Curr> currencies = new HashMap<>();
+    private static Map<String, Currency> currencies = new HashMap<>();
 
     static {
-        currencies.put("USD", new Curr("USD", 1.0f));
-        currencies.put("EUR", new Curr("EUR", 0.92f));
-        currencies.put("GBP", new Curr("GBP", 0.78f));
+        currencies.put("USD", new Currency("USD", 1.0f));
+        currencies.put("EUR", new Currency("EUR", 0.92f));
+        currencies.put("GBP", new Currency("GBP", 0.78f));
     }
 
     public static void exchangeMenu() {
@@ -20,8 +20,8 @@ public class CurrencyExchangeMenu {
         String inputCurrencyToBuy = printMenuGetInput("buy");
         double amountInput = readCheckAmount();
 
-        Curr currencyToSell = currencies.get(inputCurrencyToSell);
-        Curr currencyToBuy = currencies.get(inputCurrencyToBuy);
+        Currency currencyToSell = currencies.get(inputCurrencyToSell);
+        Currency currencyToBuy = currencies.get(inputCurrencyToBuy);
 
         if (currencyToSell != null && currencyToBuy != null) {
             CurrencyCalculator calculator = new CurrencyCalculator();
