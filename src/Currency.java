@@ -13,5 +13,7 @@ public class Currency {
 
     public float getRate() {
         return rate;
-    }
+}
+
+   
 }
