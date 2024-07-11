@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class TransactionRecord {
-public final LocalDateTime dateTime;
+private final LocalDateTime dateTime;
     private final double amount;
     private final String fromCurrency;
     private final String toCurrency;
@@ -22,6 +22,25 @@ public final LocalDateTime dateTime;
         this.result = result;
     }
 
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getFromCurrency() {
+        return fromCurrency;
+    }
+
+    public String getToCurrency() {
+        return toCurrency;
+    }
+
+    public double getResult() {
+        return result;
+    }
 
     @Override
     public String toString() {

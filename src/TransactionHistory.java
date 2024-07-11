@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionHistory {
+public class TransactionHistory implements iTransactionHistory {
     private final List<TransactionRecord> history;
     private final String filePath;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -62,19 +62,28 @@ public class TransactionHistory {
     }
 
     private void loadHistory() {
+        final int date_index= 0;
+        final int summ_index= 0;
+        final int sellCurrency_index = 1;
+        final int outcome_index = 3;
+        final int buyCurrency_index = 4;
+        final int display_index = 1;
+
+
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                LocalDateTime dateTime = LocalDateTime.parse(parts[0].trim(), formatter);
+                LocalDateTime dateTime = LocalDateTime.parse(parts[date_index].trim(), formatter);
 
 
-                String amountString = parts[1].trim().split(" ")[0];
+                String amountString = parts[display_index].trim().split(" ")[summ_index];
                 double amount = Double.parseDouble(amountString.replace(',', '.'));
 
-                String fromCurrency = parts[1].trim().split(" ")[1];
-                double result = Double.parseDouble(parts[1].trim().split(" ")[3].replace(',', '.'));
-                String toCurrency = parts[1].trim().split(" ")[4];
+                String fromCurrency = parts[display_index].trim().split(" ")[sellCurrency_index];
+                double result = Double.parseDouble(parts[display_index].trim().split(" ")[outcome_index].replace(',', '.'));
+                String toCurrency = parts[display_index].trim().split(" ")[buyCurrency_index];
 
                 history.add(new TransactionRecord(dateTime, amount, fromCurrency, toCurrency, result));
             }
