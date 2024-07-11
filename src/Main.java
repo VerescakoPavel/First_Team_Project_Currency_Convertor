@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         TransactionHistory transactionHistory = new TransactionHistory("exchangeHistory.txt");
-
+        CurrencyExchangeMenu menu = new CurrencyExchangeMenu();
         int inputChoice = 0;
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -24,7 +24,9 @@ public class Main {
 
             switch (inputChoice) {
                 case 1:
-                    CurrencyExchangeMenu.exchangeMenu(transactionHistory);
+
+                    menu.exchangeMenu(transactionHistory);
+
                     break;
                 case 2:
                     transactionHistory.printHistory();
