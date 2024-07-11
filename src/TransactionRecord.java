@@ -1,10 +1,10 @@
-/*
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
 public class TransactionRecord {
-    private final LocalDateTime dateTime;
+public final LocalDateTime dateTime;
     private final double amount;
     private final String fromCurrency;
     private final String toCurrency;
@@ -27,4 +27,6 @@ public class TransactionRecord {
     public String toString() {
         return String.format("%s | %.2f %s -> %.2f %s", dateTime.format(formatter), amount, fromCurrency, result, toCurrency);
     }
-}*/
+
+
+}

@@ -4,8 +4,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class CurrencyExchangeMenu {
-
-    private static Map<String, Currency> currencies = new HashMap<>();
+    private static final Map<String, Currency> currencies = new HashMap<>();
 
     static {
         currencies.put("USD", new Currency("USD", 1.0f));
@@ -13,7 +12,7 @@ public class CurrencyExchangeMenu {
         currencies.put("GBP", new Currency("GBP", 0.78f));
     }
 
-    public static void exchangeMenu() {
+    public static void exchangeMenu(TransactionHistory transactionHistory) {
         Scanner scanner = new Scanner(System.in);
 
         String inputCurrencyToSell = printMenuGetInput("sell");
@@ -29,10 +28,15 @@ public class CurrencyExchangeMenu {
             double result = calculator.toConvert(amountInput, currencyToSell.getRate(), currencyToBuy.getRate());
             String convertedAmount = String.format("%.2f", result);
             System.out.println(amountInput + currencyToSell.getName() + " -> " + convertedAmount + currencyToBuy.getName());
+
+
+            transactionHistory.addTransaction(amountInput, currencyToSell.getName(), currencyToBuy.getName(), result);
+
             System.out.println("_____________________________________________________");
             System.out.println();
-        } else
+        } else {
             System.out.println("Invalid input");
+        }
     }
 
     public static String printMenuGetInput(String actionSellOrBuy) {
@@ -47,10 +51,11 @@ public class CurrencyExchangeMenu {
         String result;
         while (true) {
             result = scanner.nextLine().toUpperCase();
-            if (currencies.containsKey(result))
+            if (currencies.containsKey(result)) {
                 break;
-            else
+            } else {
                 System.out.println("Invalid input. Pls enter 3 letters code only");
+            }
         }
         return result;
     }
@@ -60,7 +65,6 @@ public class CurrencyExchangeMenu {
         System.out.print("Pls Enter amount: ");
         double amount = scanner.nextDouble();
 
-        return ((amount > 0) ? amount : readCheckAmount());
-
+        return (amount > 0) ? amount : readCheckAmount();
     }
 }
