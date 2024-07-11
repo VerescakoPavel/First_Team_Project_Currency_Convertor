@@ -5,14 +5,16 @@ import java.util.Scanner;
 
 public class CurrencyExchangeMenu {
     private static final Map<String, Currency> currencies = new HashMap<>();
-
+    private final CurrencyCalculator calculator = new CurrencyCalculator();
     static {
         currencies.put("USD", new Currency("USD", 1.0f));
         currencies.put("EUR", new Currency("EUR", 0.92f));
         currencies.put("GBP", new Currency("GBP", 0.78f));
+        currencies.put("RUB", new Currency("RUB", 76f));
     }
 
-    public static void exchangeMenu(TransactionHistory transactionHistory) {
+    public void exchangeMenu(TransactionHistory transactionHistory) {
+
         Scanner scanner = new Scanner(System.in);
 
         String inputCurrencyToSell = printMenuGetInput("sell");
@@ -23,10 +25,9 @@ public class CurrencyExchangeMenu {
         Currency currencyToBuy = currencies.get(inputCurrencyToBuy);
 
         if (currencyToSell != null && currencyToBuy != null) {
-            CurrencyCalculator calculator = new CurrencyCalculator();
 
-            double result = calculator.toConvert(amountInput, currencyToSell.getRate(), currencyToBuy.getRate());
-            String convertedAmount = String.format("%.2f", result);
+            double result = calculator.convertedResult(amountInput, currencyToSell.getRate(), currencyToBuy.getRate());
+            String convertedAmount = String.format("%.2f", result); //
             System.out.println(amountInput + currencyToSell.getName() + " -> " + convertedAmount + currencyToBuy.getName());
 
 
